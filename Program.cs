@@ -15,6 +15,11 @@
         {
             try
             {
+                if (message == null)
+                {
+                    throw new ArgumentNullException("Message cannot be null.");
+                }
+
                 if (message.Length > 250)
                 {
                     throw new ArgumentException("Message exceeds the maximum allowed length of 250 characters.");
@@ -69,6 +74,11 @@
         {
             try
             {
+                if (message == null)
+                {
+                    throw new ArgumentNullException("Message cannot be null.");
+                }
+
                 if (message.Length > 250)
                 {
                     throw new ArgumentException("Message exceeds the maximum allowed length of 250 characters.");
@@ -107,7 +117,7 @@
 
             foreach (string message in transmissionBuffer)
             {
-                if (message.Contains(searchCriteria))
+                if (message.Contains(searchCriteria) && message.Length <= 250)
                 {
                     filteredMessages.Add(message);
                 }
@@ -122,7 +132,7 @@
 
             foreach (string message in receptionBuffer)
             {
-                if (message.Contains(searchCriteria))
+                if (message.Contains(searchCriteria) && message.Length <= 250)
                 {
                     filteredMessages.Add(message);
                 }
