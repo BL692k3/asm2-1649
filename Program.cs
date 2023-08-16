@@ -72,21 +72,21 @@
                         break;
 
                     case "4":
-                        messageTransferProgram.PrintTransportBuffer();
+                        messageTransferProgram.PrintProcessBuffer();
                         Console.ReadKey();
                         break;
-
+                        
                     case "5":
-                        messageTransferProgram.PrintProcessBuffer();
+                        messageTransferProgram.PrintTransportBuffer();
                         Console.ReadKey();
                         break;
 
                     case "6":
                         Console.Write("Enter the search criteria: ");
-                        string searchTransport = Console.ReadLine();
-                        IEnumerable<string> filteredTransportMessages = messageTransferProgram.FilterTransportBuffer(searchTransport);
-                        Console.WriteLine("Filtered Messages in Transport Buffer:");
-                        foreach (string filteredMessage in filteredTransportMessages)
+                        string searchProcess = Console.ReadLine();
+                        IEnumerable<string> filteredProcessMessages = messageTransferProgram.FilterProcessBuffer(searchProcess);
+                        Console.WriteLine("Filtered Messages in Process Buffer:");
+                        foreach (string filteredMessage in filteredProcessMessages)
                         {
                             Console.WriteLine(filteredMessage);
                         }
@@ -95,10 +95,10 @@
 
                     case "7":
                         Console.Write("Enter the search criteria: ");
-                        string searchProcess = Console.ReadLine();
-                        IEnumerable<string> filteredProcessMessages = messageTransferProgram.FilterProcessBuffer(searchProcess);
-                        Console.WriteLine("Filtered Messages in Process Buffer:");
-                        foreach (string filteredMessage in filteredProcessMessages)
+                        string searchTransport = Console.ReadLine();
+                        IEnumerable<string> filteredTransportMessages = messageTransferProgram.FilterTransportBuffer(searchTransport);
+                        Console.WriteLine("Filtered Messages in Transport Buffer:");
+                        foreach (string filteredMessage in filteredTransportMessages)
                         {
                             Console.WriteLine(filteredMessage);
                         }
