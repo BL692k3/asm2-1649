@@ -53,12 +53,19 @@
                         break;
 
                     case "2":
-                        while (messageTransferProgram.CountProcessBuffer > 0)
+                        if (messageTransferProgram.CountProcessBuffer == 0) 
                         {
-                            string message = messageTransferProgram.DequeueMessage();
-                            messageTransferProgram.PushMessage(message);
+                            Console.WriteLine("No messages to be dequeued and pushed onto transport buffer");
+                        } else
+                        {
+                            while (messageTransferProgram.CountProcessBuffer > 0)
+                            {
+                                string message = messageTransferProgram.DequeueMessage();
+                                messageTransferProgram.PushMessage(message);
+                            }
+                            Console.WriteLine("Dequeued and pushed all messages from the process buffer to the transfer buffer.");
                         }
-                        Console.WriteLine("Dequeued and pushed all messages from the process buffer to the transfer buffer.");
+                        
                         Console.ReadKey();
                         break;
 

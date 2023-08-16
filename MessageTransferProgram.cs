@@ -113,34 +113,19 @@
             }
         }
 
+        private IEnumerable<string> FilterMessages(List<string> buffer, string searchCriteria)
+        {
+            return buffer.Where(message => message.Contains(searchCriteria));
+        }
+
         public IEnumerable<string> FilterTransportBuffer(string searchCriteria)
         {
-            List<string> filteredMessages = new();
-
-            foreach (string message in transportBuffer)
-            {
-                if (message.Contains(searchCriteria) && message.Length <= 250)
-                {
-                    filteredMessages.Add(message);
-                }
-            }
-
-            return filteredMessages;
+            return FilterMessages(transportBuffer.ToList(), searchCriteria);
         }
 
         public IEnumerable<string> FilterProcessBuffer(string searchCriteria)
         {
-            List<string> filteredMessages = new();
-
-            foreach (string message in processBuffer)
-            {
-                if (message.Contains(searchCriteria) && message.Length <= 250)
-                {
-                    filteredMessages.Add(message);
-                }
-            }
-
-            return filteredMessages;
+            return FilterMessages(processBuffer.ToList(), searchCriteria);
         }
     }
 }
