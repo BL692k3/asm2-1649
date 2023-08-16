@@ -14,10 +14,10 @@
                 Console.WriteLine("1. Enqueue Message(s)");
                 Console.WriteLine("2. Dequeue and Push Messages");
                 Console.WriteLine("3. Pop and Print Messages");
-                Console.WriteLine("4. Print Transport Buffer");
-                Console.WriteLine("5. Print Process Buffer");
-                Console.WriteLine("6. Filter Transport Buffer");
-                Console.WriteLine("7. Filter Process Buffer");
+                Console.WriteLine("4. Print Process Buffer");
+                Console.WriteLine("5. Print Transport Buffer");
+                Console.WriteLine("6. Filter Process Buffer");
+                Console.WriteLine("7. Filter Transport Buffer");
                 Console.WriteLine("8. Exit");
 
                 Console.Write("Enter your choice: ");
@@ -116,7 +116,7 @@
                 }
 
                 Console.Clear(); // Clear the screen after each case
-                Thread.Sleep(100); // Add a small delay before proceeding
+                Thread.Sleep(200); // Add a small delay before proceeding
             }
 
             Console.WriteLine("Program ends.");
