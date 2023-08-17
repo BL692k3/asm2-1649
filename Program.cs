@@ -5,7 +5,6 @@
         public static void Main()
         {
             MessageTransferProgram messageTransferProgram = new();
-
             bool running = true; // Initialize running variable to true
 
             while (running)
@@ -28,53 +27,17 @@
                 switch (input)
                 {
                     case "1":
-                        Console.Write("Enter the number of messages to enqueue: ");
-                        if (int.TryParse(Console.ReadLine(), out int count))
-                        {
-                            for (int i = 0; i < count; i++)
-                            {
-                                Console.Write($"Enter message {i + 1}: ");
-                                string enqueueMessage = Console.ReadLine();
-                                if (!string.IsNullOrEmpty(enqueueMessage))
-                                {
-                                    messageTransferProgram.EnqueueMessage(enqueueMessage);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Invalid input. Message cannot be null or empty.");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid input. Please enter a valid integer.");
-                        }
+                        EnqueueMessages();                        
                         Console.ReadKey();
                         break;
 
                     case "2":
-                        if (messageTransferProgram.CountProcessBuffer == 0) 
-                        {
-                            Console.WriteLine("No messages to be dequeued and pushed onto transport buffer");
-                        } else
-                        {
-                            while (messageTransferProgram.CountProcessBuffer > 0)
-                            {
-                                string message = messageTransferProgram.DequeueMessage();
-                                messageTransferProgram.PushMessage(message);
-                            }
-                            Console.WriteLine("Dequeued and pushed all messages from the process buffer to the transfer buffer.");
-                        }
-                        
+                        DequeueToPushMessages();
                         Console.ReadKey();
                         break;
 
                     case "3":
-                        while (messageTransferProgram.CountTransportBuffer > 0)
-                        {
-                            string message = messageTransferProgram.PopMessage();
-                            Console.WriteLine($"Popped message from process buffer: {message}");
-                        }
+                        PopToPrintMessages();
                         Console.ReadKey();
                         break;
 
@@ -89,26 +52,12 @@
                         break;
 
                     case "6":
-                        Console.Write("Enter the search criteria: ");
-                        string searchProcess = Console.ReadLine();
-                        IEnumerable<string> filteredProcessMessages = messageTransferProgram.FilterProcessBuffer(searchProcess);
-                        Console.WriteLine("Filtered Messages in Process Buffer:");
-                        foreach (string filteredMessage in filteredProcessMessages)
-                        {
-                            Console.WriteLine(filteredMessage);
-                        }
+                        ProcessBufferFilter();
                         Console.ReadKey();
                         break;
 
                     case "7":
-                        Console.Write("Enter the search criteria: ");
-                        string searchTransport = Console.ReadLine();
-                        IEnumerable<string> filteredTransportMessages = messageTransferProgram.FilterTransportBuffer(searchTransport);
-                        Console.WriteLine("Filtered Messages in Transport Buffer:");
-                        foreach (string filteredMessage in filteredTransportMessages)
-                        {
-                            Console.WriteLine(filteredMessage);
-                        }
+                        TransportBufferFilter();
                         Console.ReadKey();
                         break;
 
@@ -127,6 +76,86 @@
             }
 
             Console.WriteLine("Program ends.");
+        }
+
+        public static void EnqueueMessages()
+        {
+            MessageTransferProgram messageTransferProgram = new();
+            Console.Write("Enter the number of messages to enqueue: ");
+            if (int.TryParse(Console.ReadLine(), out int count))
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    Console.Write($"Enter message {i + 1}: ");
+                    string enqueueMessage = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(enqueueMessage))
+                    {
+                        messageTransferProgram.EnqueueMessage(enqueueMessage);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Message cannot be null or empty.");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+            }
+        }
+
+        public static void DequeueToPushMessages() 
+        {
+            MessageTransferProgram messageTransferProgram = new();
+            if (messageTransferProgram.CountProcessBuffer == 0)
+            {
+                Console.WriteLine("No messages to be dequeued and pushed onto transport buffer");
+            }
+            else
+            {
+                while (messageTransferProgram.CountProcessBuffer > 0)
+                {
+                    string message = messageTransferProgram.DequeueMessage();
+                    messageTransferProgram.PushMessage(message);
+                }
+                Console.WriteLine("Dequeued and pushed all messages from the process buffer to the transfer buffer.");
+            }
+        }
+
+        public static void PopToPrintMessages()
+        {
+            MessageTransferProgram messageTransferProgram = new();
+            while (messageTransferProgram.CountTransportBuffer > 0)
+            {
+                string message = messageTransferProgram.PopMessage();
+                Console.WriteLine($"Popped message from process buffer: {message}");
+            }
+        }
+
+        public static void ProcessBufferFilter()
+        {
+            MessageTransferProgram messageTransferProgram = new();
+            Console.Write("Enter the search criteria: ");
+            string searchProcess = Console.ReadLine();
+            IEnumerable<string> filteredProcessMessages = messageTransferProgram.FilterProcessBuffer(searchProcess);
+            Console.WriteLine("Filtered Messages in Process Buffer:");
+            foreach (string filteredMessage in filteredProcessMessages)
+            {
+                Console.WriteLine(filteredMessage);
+            }
+        }
+
+        public static void TransportBufferFilter()
+        {
+            MessageTransferProgram messageTransferProgram = new();
+            Console.Write("Enter the search criteria: ");
+            string searchTransport = Console.ReadLine();
+            IEnumerable<string> filteredTransportMessages = messageTransferProgram.FilterTransportBuffer(searchTransport);
+            Console.WriteLine("Filtered Messages in Transport Buffer:");
+            foreach (string filteredMessage in filteredTransportMessages)
+            {
+                Console.WriteLine(filteredMessage);
+            }
         }
     }
 }
